@@ -1,0 +1,7 @@
+{
+  "name": "musicInMind",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

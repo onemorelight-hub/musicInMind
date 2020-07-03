@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10"><ion-title color="primary"> XStream</ion-title></ion-col>
+      <ion-col size="1"> <a routerLink="/contact"><ion-icon class="info-margin" name="information-circle-outline"></ion-icon></a></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="movieList">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let movie of movieList.docs">
+          <a color="primary" (click)="playFile(movie.movie_file_url, movie.contentType)" style="padding: 0cm;">
+            <ion-card style="padding: 0cm;">
+                <img src="{{movie.poster_pic_url}}"  alt="{{movie.title }}"/>
+                <ion-card-content>
+                  <ion-card-title>
+                    {{movie.title }}
+                  </ion-card-title>
+                </ion-card-content>
+            </ion-card>
+            </a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Load more data-->
+  <div *ngIf="moreData">
+    <div *ngFor="let movieCount of moreData">
+      <ion-row>
+        <ion-col size="6" *ngFor="let movie of movieCount.docs" >
+          <a color="primary" (click)="playFile(movie.movie_file_url, movie.contentType)" style="padding: 0cm;">
+            <ion-card style="padding: 0cm;">
+                <img src="{{movie.poster_pic_url}}"  alt="{{movie.title }}"/>
+                <ion-card-content>
+                  <ion-card-title>
+                    {{movie.title }}
+                  </ion-card-title>
+                </ion-card-content>
+            </ion-card>
+            </a>
+        </ion-col>
+      </ion-row>  
+    </div>
+  </div>
+
+   <!-- Infinite loading-->
+   <ion-infinite-scroll threshold="100%" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- -->
+  <div class="spin" [hidden]="movieList || error">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+<!-- End-->
+  <div *ngIf="error" [hidden]="movieList">
+    <p>Error: {{error}}</p>
+  </div>
+</ion-content>

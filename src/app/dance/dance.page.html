@@ -1,0 +1,73 @@
+
+  <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10"><ion-title color="primary"> XStream</ion-title></ion-col>
+      <ion-col size="1"> <a routerLink="/contact"><ion-icon class="info-margin" name="information-circle-outline"></ion-icon></a></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="danceList">
+    <div *ngFor="let dance of danceList.docs">
+      <a color="primary" (click)="playFile(dance.video_url, dance.mode)" style="padding: 0cm;">
+        <ion-card style="padding: 0cm;">
+          <ion-chip>
+            <ion-avatar>
+              <img src="{{dance.profile_pic_url}}">
+            </ion-avatar>
+            <ion-label>{{dance.full_name}}</ion-label>
+          </ion-chip>
+          
+          <div class="video-thumbnail">
+            <img src="{{dance.display_url}}" />
+            <ion-icon color="primary" name="play"></ion-icon>
+            <p>{{dance.video_duration | duration}}</p>
+          </div>
+        </ion-card>
+        </a>
+    </div>
+  </div>
+<!-- Load more data-->
+  <div *ngIf="moreData">
+    <div *ngFor="let docs of moreData">
+      <div *ngFor="let dance of docs.docs">
+        <a color="primary" (click)="playFile(dance.video_url, dance.mode)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+            <ion-chip>
+              <ion-avatar>
+                <img src="{{dance.profile_pic_url}}">
+              </ion-avatar>
+              <ion-label>{{dance.full_name}}</ion-label>
+            </ion-chip>
+            
+            <div class="video-thumbnail">
+              <img src="{{dance.display_url}}" />
+              <ion-icon color="primary" name="play"></ion-icon>
+              <p>{{dance.video_duration | duration}}</p>
+            </div>
+          </ion-card>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- Infinite loading-->
+   <ion-infinite-scroll threshold="100%" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- Expolre News End-->
+  <div class="spin" [hidden]="danceList || error">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <div *ngIf="error" [hidden]="danceList">
+    <p>Error: {{error}}</p>
+  </div>
+</ion-content>

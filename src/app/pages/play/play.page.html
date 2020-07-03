@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-row>
+      <ion-col size="2">
+          <ion-back-button color="primary" defaultHref="tabs/movie"></ion-back-button>
+      </ion-col>
+      <ion-col size="8">
+        <ion-title class="margin" color="primary"> XStream</ion-title> 
+      </ion-col>
+      <ion-col size="2"> </ion-col>
+    </ion-row>
+   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content     
+    pullingIcon="chevron-down-circle-outline"
+    refreshingSpinner="circles"    >
+  </ion-refresher-content>
+  </ion-refresher>
+  <div class="place-iframe">
+    <iframe width="100%" [src]="sanatize(url)" allowfullscreen sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
+  </div>
+
+  <div class="tips">
+    <p>Tips:</p>
+    <p>
+      If you see the message "Can't play. Download the file" please refresh the page couple of times.
+      If the video loaded properly click on the video couple of times to start playing.  
+    </p>
+    <p>
+      To play video in landscape mode. Turn off the screen rotation and refresh the page. 
+    </p>
+  </div>
+
+</ion-content>

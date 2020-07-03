@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10"><ion-title color="primary"> XStream</ion-title></ion-col>
+      <ion-col size="1"> <a routerLink="/contact"><ion-icon class="info-margin" name="information-circle-outline"></ion-icon></a></ion-col>
+    </ion-row>
+    <ion-segment [(ngModel)]="selectedCatagory" scrollable (ionChange)="segmentChanged($event)" value={{selectedCatagory}}>
+      <ion-segment-button *ngFor="let catagory of catagories" value={{catagory}}>
+        <ion-label>{{catagory}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="selectedCatagory"> 
+    <div *ngSwitchCase="'India'">
+      <div *ngIf="indiaTrend">
+        <ion-row *ngFor='let item of indiaTrend' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+    <div *ngSwitchCase="'USA'">
+      <div *ngIf="usaTrend">
+        <ion-row *ngFor='let item of usaTrend' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+    <div *ngSwitchCase="'Trailer'">
+      <div *ngIf="latestTrailer">
+        <ion-row *ngFor='let item of latestTrailer' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+    <div *ngSwitchCase="'Live News'">
+      <div *ngIf="liveNews">
+        <ion-row *ngFor='let item of liveNews' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+    <div *ngSwitchCase="'Music'">
+      <div *ngIf="LatestMusic">
+        <ion-row *ngFor='let item of LatestMusic' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+    <div *ngSwitchCase="'Songs'">
+      <div *ngIf="movieSongs">
+        <ion-row *ngFor='let item of movieSongs' (click)="openVideo(item.videoId)">
+          <ion-col size="4">
+            <img src="{{item.urlToPic}}" alt="img" height="90" width="120">
+          </ion-col>
+          <ion-col size="8">
+            <h6> {{item.title}}</h6>
+          </ion-col>
+        </ion-row>
+      </div>      
+    </div>
+
+  </div>
+  
+  <!---->
+  <div class="spin" [hidden]="indiaTrend || usaTrend || ukTrend || latestTrailer || liveNews || LatestMusic || movieSongs || errMess">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <!-- End-->
+  <div *ngIf="errMess" [hidden]="indiaTrend || usaTrend || ukTrend || latestTrailer || liveNews || LatestMusic || movieSongs">
+    <p>Error: {{errMess}}</p>
+  </div>
+</ion-content>

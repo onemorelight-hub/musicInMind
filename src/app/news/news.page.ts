@@ -53,12 +53,6 @@ constructor(private newsService: NewsService, private router : Router, private r
     })
     this.newsCurrentPage = 1;
     this.totalNewsPages =2;
-    // Ads getting ready 
-    this.platform.ready().then(() => {
-    this.showBannerAdds();
-    this.showInterstitialAds();
-
-    }); 
 }
 
 ngOnInit() {

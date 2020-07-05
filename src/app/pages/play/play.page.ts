@@ -19,14 +19,14 @@ export class PlayPage implements OnInit {
       console.log(this.url);
    });
    
+    
+  }
+
+  ngOnInit() {
     // Ads getting ready 
     this.platform.ready().then(() => {
       this.showInterstitialAds();
       }); 
-  }
-
-  ngOnInit() {
-    
   }
 
   sanatize(url): any{

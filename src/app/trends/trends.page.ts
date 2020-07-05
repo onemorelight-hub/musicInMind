@@ -25,11 +25,7 @@ export class TrendsPage implements OnInit {
  
   errMess: any;
   constructor(private youTubeService: YouTubeService, private youtube: YoutubeVideoPlayer,  private admobFree: AdMobFree,private platform: Platform) {
-     // Ads getting ready 
-     this.platform.ready().then(() => {
-      this.showBannerAdds();
-      this.showInterstitialAds();
-      }); 
+    
    }
 
   ngOnInit() {
@@ -42,6 +38,11 @@ export class TrendsPage implements OnInit {
       this.errMess = "Falied to process. Check internet connection or Update the App";
     }
     )
+     // Ads getting ready 
+     this.platform.ready().then(() => {
+      this.showBannerAdds();
+      this.showInterstitialAds();
+      }); 
   }
 
  openVideo(id){

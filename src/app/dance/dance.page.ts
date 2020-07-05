@@ -33,14 +33,15 @@ export class DancePage implements OnInit {
         this.error = "Failed to process. Check internet connection Or Update the app"
       }
     )
+    
+  }
+
+  ngOnInit() {
      // Ads getting ready 
      this.platform.ready().then(() => {
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 
-  }
-
-  ngOnInit() {
   }
 
   playFile(url, mode){

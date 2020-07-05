@@ -50,8 +50,8 @@
   </div>
 
    <!-- Infinite loading-->
-   <ion-infinite-scroll threshold="100%" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
+   <ion-infinite-scroll threshold="70%" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content color="primary"
       loadingSpinner="bubbles"
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
@@ -64,4 +64,5 @@
   <div *ngIf="error" [hidden]="movieList">
     <p>Error: {{error}}</p>
   </div>
+ 
 </ion-content>

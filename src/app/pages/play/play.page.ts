@@ -13,19 +13,20 @@ export class PlayPage implements OnInit {
 
   url: any;
   constructor(private activatedRoute: ActivatedRoute, private sanatizer: DomSanitizer,
-    private admobFree: AdMobFree, platform: Platform) { 
+    private admobFree: AdMobFree,private platform: Platform) { 
      this.activatedRoute.queryParams.subscribe(params => {
       this.url = params['url']; 
       console.log(this.url);
    });
+   
     // Ads getting ready 
-    platform.ready().then(() => {
-      this.showBannerAdds();
+    this.platform.ready().then(() => {
       this.showInterstitialAds();
       }); 
   }
 
   ngOnInit() {
+    
   }
 
   sanatize(url): any{
@@ -39,22 +40,6 @@ export class PlayPage implements OnInit {
   }
 
   //Adds
-showBannerAdds(){
-  const bannerConfig: AdMobFreeBannerConfig = {
-    //isTesting: true,
-    autoShow: true,
-    id: "ca-app-pub-1941754750452964/1298976597"
-    };
-    this.admobFree.banner.config(bannerConfig);
-    this.admobFree.banner.prepare()
-      .then(() => {
-        // banner Ad is ready
-        // if we set autoShow to false, then we will need to call the show method here
-      })
-    // .catch(e => {alert(e)});
-
-}
-
   showInterstitialAds(){
     let interstitialConfig: AdMobFreeInterstitialConfig = {
         // isTesting: true, // Remove in production

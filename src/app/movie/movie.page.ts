@@ -20,7 +20,7 @@ export class MoviePage implements OnInit {
   newsCurrentPage: number;
   totalNewsPages: number;
   constructor(private streamingService: StreamingService, private youTubePlayer: YoutubeVideoPlayer, private router: Router 
-    ,  private admobFree: AdMobFree, platform: Platform) { 
+    ,  private admobFree: AdMobFree,private platform: Platform) { 
    this.newsCurrentPage=1;   
     this.streamingService.getMovies(this.options).subscribe(data=>{
         this.movieList=data
@@ -37,7 +37,7 @@ export class MoviePage implements OnInit {
       }
     )
      // Ads getting ready 
-     platform.ready().then(() => {
+     this.platform.ready().then(() => {
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 
@@ -65,7 +65,12 @@ export class MoviePage implements OnInit {
 
   loadData(event) {
     console.log("claas")
-    this.getMoreData(event);     
+    this.getMoreData(event);    
+    // Ads getting ready 
+    this.platform.ready().then(() => {
+      this.showBannerAdds();
+      this.showInterstitialAds();
+      });  
 }
 getMoreData(event){
   this.options.page = this.newsCurrentPage+1;

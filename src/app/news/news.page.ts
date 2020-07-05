@@ -47,14 +47,14 @@ export class NewsPage implements OnInit {
 constructor(private newsService: NewsService, private router : Router, private route: ActivatedRoute,
   private inAppBrowser: InAppBrowser, private loadingService: LoadingService, 
   private catagoryService: CatagoryService, public navCtrl: NavController, private admobFree: AdMobFree,
-  platform: Platform,) {
+  private platform: Platform,) {
     this.catagoryService.catagory.subscribe((data)=>{
       this.selectedCatagory = data;
     })
     this.newsCurrentPage = 1;
     this.totalNewsPages =2;
     // Ads getting ready 
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
     this.showBannerAdds();
     this.showInterstitialAds();
 
@@ -63,6 +63,11 @@ constructor(private newsService: NewsService, private router : Router, private r
 
 ngOnInit() {
   this.getTopNews();
+  // Ads getting ready 
+  this.platform.ready().then(() => {
+    this.showBannerAdds();
+    this.showInterstitialAds();
+    }); 
 }
 
 method(url){
@@ -96,11 +101,21 @@ segmentChanged(catagory){
   this.catagoryService.catagory.next(catagory.detail.value);
   this.resetAll()
   this.getTopNews();
+  // Ads getting ready 
+  this.platform.ready().then(() => {
+    this.showBannerAdds();
+    this.showInterstitialAds();
+    }); 
 }
 
 // explore news implementation 
 loadData(event) {
-    this.getMoreNews(event);     
+    this.getMoreNews(event);  
+    // Ads getting ready 
+    this.platform.ready().then(() => {
+      this.showBannerAdds();
+      this.showInterstitialAds();
+      });    
 }
 getMoreNews(event){
 this.options.page = this.newsCurrentPage+1;

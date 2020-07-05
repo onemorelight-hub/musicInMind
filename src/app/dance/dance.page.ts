@@ -19,7 +19,7 @@ export class DancePage implements OnInit {
   totalNewsPages: number;
   error: any;
   constructor(private streamingService: StreamingService, private streamingMedia: StreamingMedia,
-    private admobFree: AdMobFree, platform: Platform) { 
+    private admobFree: AdMobFree, private platform: Platform) { 
     this.options.page=1;
     this.options.limit=8;
     this.newsCurrentPage=1;
@@ -34,7 +34,7 @@ export class DancePage implements OnInit {
       }
     )
      // Ads getting ready 
-     platform.ready().then(() => {
+     this.platform.ready().then(() => {
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 
@@ -60,7 +60,13 @@ export class DancePage implements OnInit {
   }
 
 loadData(event) {
-    this.getMoreNews(event);     
+    this.getMoreNews(event);    
+    
+    // Ads getting ready 
+    this.platform.ready().then(() => {
+      this.showBannerAdds();
+      this.showInterstitialAds();
+      }); 
 }
 getMoreNews(event){
   this.options.page = this.newsCurrentPage+1;

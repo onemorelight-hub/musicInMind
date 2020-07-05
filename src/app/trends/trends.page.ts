@@ -24,9 +24,9 @@ export class TrendsPage implements OnInit {
   selectedCatagory = "India";
  
   errMess: any;
-  constructor(private youTubeService: YouTubeService, private youtube: YoutubeVideoPlayer,  private admobFree: AdMobFree, platform: Platform) {
+  constructor(private youTubeService: YouTubeService, private youtube: YoutubeVideoPlayer,  private admobFree: AdMobFree,private platform: Platform) {
      // Ads getting ready 
-     platform.ready().then(() => {
+     this.platform.ready().then(() => {
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 
@@ -50,7 +50,12 @@ export class TrendsPage implements OnInit {
  }
 
  segmentChanged(catagory){
-  this.reset();  
+  this.reset(); 
+  // Ads getting ready 
+  this.platform.ready().then(() => {
+    this.showBannerAdds();
+    this.showInterstitialAds();
+    });  
   switch(catagory.detail.value){
     case "USA": 
       this.youTubeService.getUSATrendVideos().subscribe((data)=>{

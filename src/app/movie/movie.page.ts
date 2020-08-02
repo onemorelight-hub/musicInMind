@@ -4,6 +4,7 @@ import { StreamingService } from '../services/streaming-service.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-movie',
@@ -19,8 +20,9 @@ export class MoviePage implements OnInit {
   options: any = {"page": 1, "limit": 6, "contentType":"dance"};
   newsCurrentPage: number;
   totalNewsPages: number;
+
   constructor(private streamingService: StreamingService, private youTubePlayer: YoutubeVideoPlayer, private router: Router 
-    ,  private admobFree: AdMobFree,private platform: Platform) { 
+    ,  private admobFree: AdMobFree,private platform: Platform, private statusBar: StatusBar) { 
    this.newsCurrentPage=1;   
     this.streamingService.getMovies(this.options).subscribe(data=>{
         this.movieList=data
@@ -39,9 +41,22 @@ export class MoviePage implements OnInit {
      
   }
 
+  ionViewDidLoad(){
+    this.platform.ready().then(() => {
+      this.statusBar.show();
+      });   
+  }
+
+  ionViewDidEnter(){
+    this.platform.ready().then(() => {
+      this.statusBar.show();
+      });   
+  }
+
   ngOnInit() {
     // Ads getting ready 
     this.platform.ready().then(() => {
+      this.statusBar.show();
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 

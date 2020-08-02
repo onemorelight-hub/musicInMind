@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-play',
@@ -12,8 +13,10 @@ import { Platform } from '@ionic/angular';
 export class PlayPage implements OnInit {
 
   url: any;
+
   constructor(private activatedRoute: ActivatedRoute, private sanatizer: DomSanitizer,
-    private admobFree: AdMobFree,private platform: Platform) { 
+    private admobFree: AdMobFree,private platform: Platform, private   statusBar: StatusBar
+    ) { 
      this.activatedRoute.queryParams.subscribe(params => {
       this.url = params['url']; 
       console.log(this.url);
@@ -25,6 +28,8 @@ export class PlayPage implements OnInit {
   ngOnInit() {
     // Ads getting ready 
     this.platform.ready().then(() => {
+      this.statusBar.hide();
+      this.admobFree.banner.remove();
       this.showInterstitialAds();
       }); 
   }

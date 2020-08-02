@@ -3,6 +3,7 @@ import { YouTubeService } from '../services/you-tube.service';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class TrendsPage implements OnInit {
   selectedCatagory = "India";
  
   errMess: any;
-  constructor(private youTubeService: YouTubeService, private youtube: YoutubeVideoPlayer,  private admobFree: AdMobFree,private platform: Platform) {
+
+  constructor(private youTubeService: YouTubeService, private youtube: YoutubeVideoPlayer,  private admobFree: AdMobFree,
+    private platform: Platform, private statusBar: StatusBar) {
     
    }
 
@@ -40,6 +43,7 @@ export class TrendsPage implements OnInit {
     )
      // Ads getting ready 
      this.platform.ready().then(() => {
+       this.statusBar.show();
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 
@@ -58,6 +62,15 @@ export class TrendsPage implements OnInit {
     this.showInterstitialAds();
     });  
   switch(catagory.detail.value){
+    case "India": 
+      this.youTubeService.getIndiaTrendVideos().subscribe((data)=>{
+        this.indiaTrend = data;
+      },
+      err=>{
+        console.log("error: "+JSON.stringify(err))
+        this.errMess = "Falied to process. Check internet connection or Update the App";
+      })
+     break;
     case "USA": 
       this.youTubeService.getUSATrendVideos().subscribe((data)=>{
         this.usaTrend = data;

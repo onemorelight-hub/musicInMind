@@ -4,6 +4,7 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
 import { StreamingService } from '../services/streaming-service.service';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-dance',
@@ -18,8 +19,10 @@ export class DancePage implements OnInit {
   newsCurrentPage: number;
   totalNewsPages: number;
   error: any;
+
   constructor(private streamingService: StreamingService, private streamingMedia: StreamingMedia,
-    private admobFree: AdMobFree, private platform: Platform) { 
+    private admobFree: AdMobFree, private platform: Platform, private statusBar: StatusBar
+    ) { 
     this.options.page=1;
     this.options.limit=8;
     this.newsCurrentPage=1;
@@ -39,6 +42,7 @@ export class DancePage implements OnInit {
   ngOnInit() {
      // Ads getting ready 
      this.platform.ready().then(() => {
+       this.statusBar.show();
       this.showBannerAdds();
       this.showInterstitialAds();
       }); 

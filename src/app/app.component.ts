@@ -22,6 +22,7 @@ export class AppComponent {
   ) {
     this.platform.backButton.subscribe(() =>{
       this.loadingService.stopLoadin();
+      this.statusBar.show();
       console.log(this.router.url);
       if(this.router.url == "/tabs/movie" || this.router.url == "/tabs/news" || this.router.url == "/tabs/trends" || this.router.url == "/tabs/dance"){
         console.log("closing the app")

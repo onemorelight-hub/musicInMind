@@ -8,6 +8,7 @@ import { NavController, Platform } from '@ionic/angular';
 import { Catagories } from '../shared/catagories';
 import { CatagoryService } from '../services/catagory.service';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-news',
@@ -47,7 +48,7 @@ export class NewsPage implements OnInit {
 constructor(private newsService: NewsService, private router : Router, private route: ActivatedRoute,
   private inAppBrowser: InAppBrowser, private loadingService: LoadingService, 
   private catagoryService: CatagoryService, public navCtrl: NavController, private admobFree: AdMobFree,
-  private platform: Platform,) {
+  private platform: Platform, private statusBar: StatusBar) {
     this.catagoryService.catagory.subscribe((data)=>{
       this.selectedCatagory = data;
     })
@@ -59,6 +60,7 @@ ngOnInit() {
   this.getTopNews();
   // Ads getting ready 
   this.platform.ready().then(() => {
+    this.statusBar.show();
     this.showBannerAdds();
     this.showInterstitialAds();
     }); 

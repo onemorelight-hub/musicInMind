@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
 import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-contact',
@@ -10,15 +11,17 @@ import { Platform } from '@ionic/angular';
 })
 export class ContactPage implements OnInit {
 
-  constructor(private location: Location,  private admobFree: AdMobFree, platform: Platform) {
-     // Ads getting ready 
-     platform.ready().then(() => {
-      this.showBannerAdds();
-      this.showInterstitialAds();
-      }); 
+  constructor(private location: Location,  private admobFree: AdMobFree,private platform: Platform, private statusBar: StatusBar) {
+     
    }
 
   ngOnInit() {
+    // Ads getting ready 
+    this.platform.ready().then(() => {
+      this.statusBar.show();
+      this.showBannerAdds();
+      this.showInterstitialAds();
+      }); 
   }
   backPage(){
     this.location.back();
